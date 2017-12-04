@@ -43,16 +43,19 @@
 {
     [super layoutSubviews];
     
-    self.scrollView.contentSize = CGSizeMake(self.bounds.size.width * 3, self.bounds.size.height);
+    self.scrollView.contentSize = CGSizeMake(self.bounds.size.width * 3,
+                                             self.bounds.size.height);
     
-    self.middleImageView.frame = CGRectMake(self.bounds.size.width, 0, self.bounds.size.width, self.bounds.size.height);
-    
+    self.middleImageView.frame = CGRectMake(self.bounds.size.width,
+                                            0,
+                                            self.bounds.size.width,
+                                            self.bounds.size.height);
 }
 
 - (void)setImageArray:(NSArray *)imageArray
 {
     _imageArray = imageArray;
-    if (imageArray) {
+    if (imageArray == nil || imageArray.count <= 1) {
         self.imageIndex = 0;
         self.pageControl.numberOfPages = _imageArray.count;
         self.pageControl.currentPage = 0;
@@ -61,7 +64,7 @@
 
 - (void)reloadData
 {
-    if (self.imageArray) {
+    if (self.imageArray == nil || self.imageArray.count <= 1) {
         self.pageControl.hidden = YES;
         self.scrollView.scrollEnabled = NO;
         self.middleImageView.image = [UIImage imageNamed:self.defaultImg];
@@ -90,11 +93,9 @@
 - (void)handlePageControlCurrentPage:(CGFloat)pointX
 {
     if (pointX == 0) {
-        
         self.pageControl.currentPage = (self.imageIndex - 1) < 0 ? (self.imageArray.count - 1): (self.imageIndex - 1);
     }
     else if (pointX == self.bounds.size.width * 2) {
-        
         self.pageControl.currentPage = (self.imageIndex + 1) % self.imageArray.count;
     }
     else {
@@ -118,7 +119,7 @@
 {
     CGFloat x = scrollView.contentOffset.x;
     
-    if (self.imageArray) {
+    if (self.imageArray == nil || self.imageArray.count <= 1) {
         return;
     }
     
@@ -211,10 +212,6 @@
     
     if (_delegate && [_delegate respondsToSelector:@selector(sliderView:didSelectedItemAtIndex:)]) {
         [_delegate sliderView:self didSelectedItemAtIndex:self.imageIndex];
-    }
-    
-    if (self.scrollerviewclickBlock) {
-        self.scrollerviewclickBlock(self.pageControl.currentPage);
     }
 }
 

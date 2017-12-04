@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void (^scrollerviewclick)(NSInteger index);
-
 @class SliderView;
 
 @protocol SliderViewDelegate <NSObject>
@@ -26,9 +24,6 @@ typedef void (^scrollerviewclick)(NSInteger index);
  图片跳转 遵循代理SliderViewDelegate
  */
 @property (nonatomic, weak) id<SliderViewDelegate>delegate;
-
-#warning 使用 <SliderViewDelegate> 替代block
-@property(copy,nonatomic)scrollerviewclick  scrollerviewclickBlock;
 
 /**
  *  存储图片 数组
