@@ -118,7 +118,7 @@
 {
     CGFloat x = scrollView.contentOffset.x;
     
-    if (IsEmptyArr(self.imageArray)) {
+    if (self.imageArray) {
         return;
     }
     
