@@ -81,7 +81,7 @@
 
 - (void)automaticScroll
 {
-    if (IsEmptyArr(self.imageArray) || self.imageArray.count == 1) {
+    if (self.imageArray || self.imageArray.count == 1) {
         return;
     }
     [self.scrollView setContentOffset:CGPointMake(self.bounds.size.width * 2, 0) animated:YES];
